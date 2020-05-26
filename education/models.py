@@ -1,6 +1,6 @@
 from django.db import models
 from django.utils import timezone
-import requests
+from .validator import validate_url
 
 
 class Course(models.Model):
@@ -42,12 +42,7 @@ class Task(models.Model):
 class Solution(models.Model):
     task = models.ForeignKey(Task, on_delete=models.CASCADE)
     date = models.DateTimeField(default=timezone.now)
-    url = models.URLField()
+    url = models.URLField(validators=[validate_url])
 
     def __str__(self):
         return f'Solution to: {self.task}'
-
-    def save(self, *args, **kwargs):
-        r = requests.get(self.url)
-        assert r.status_code < 400, "URL does not exist"
-        super().save(*args, **kwargs)
