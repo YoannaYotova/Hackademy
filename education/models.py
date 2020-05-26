@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils import timezone
+import requests
 
 
 class Course(models.Model):
@@ -36,3 +37,17 @@ class Task(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class Solution(models.Model):
+    task = models.ForeignKey(Task, on_delete=models.CASCADE)
+    date = models.DateTimeField(default=timezone.now)
+    url = models.URLField()
+
+    def __str__(self):
+        return f'Solution to: {self.task}'
+
+    def save(self, *args, **kwargs):
+        r = requests.get(self.url)
+        assert r.status_code < 400, "URL does not exist"
+        super().save(*args, **kwargs)
