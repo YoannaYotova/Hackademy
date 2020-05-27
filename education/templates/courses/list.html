@@ -1,5 +1,5 @@
 {% extends "courses/base.html" %} {% block content %}
-<a href="{% url 'education:courses:create' %}">Add new</a>
+<!-- <a href="{% url 'education:courses:create' %}">Add new</a>
 
 {% if courses %}
 <ul>
@@ -9,4 +9,35 @@
 </ul>
 {% else %}
 <p><strong>No courses yet.</strong></p>
-{% endif %} {% endblock %}
+{% endif %}  -->
+
+<table style="width: 70%">
+    <tr>
+        <th>CourseName</th>
+        <th>Description</th>
+        <th>Start Date</th>
+        <th>End Date</th>
+        <th>Duration</th>
+    </tr>
+    <tr>
+    {% for course in courses %}
+        <td>
+            <a href="{% url 'education:courses:detail' course.id %}">{{ course.name }}</a>
+        </td>
+        <td>
+            {{ course.description }}
+        </td>
+        <td>
+            {{ course.start_date }}
+        </td>
+        <td>
+            {{ course.end_date }}
+        </td>
+        <td>
+            {{ course.duration }} 
+        </td>
+    </tr>
+    {% endfor %}
+    
+</table>
+{% endblock %}
