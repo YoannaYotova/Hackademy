@@ -8,6 +8,7 @@ courses_patterns = [
     path('', courses.list, name='list'),
     path('<int:course_id>/', courses.detail, name='detail'),
     path('new/', courses.CourseCreateView.as_view(), name='create'),
+    path('<int:pk>/edit/', courses.CourseEditView.as_view(), name='edit'),
 ]
 
 

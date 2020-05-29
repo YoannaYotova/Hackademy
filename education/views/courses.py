@@ -1,5 +1,6 @@
 from django.shortcuts import render, get_object_or_404
 from django.views.generic import CreateView
+from django.views.generic.edit import UpdateView
 from django.urls import reverse_lazy
 
 from education.models import Course, Lecture
@@ -19,6 +20,15 @@ class CourseCreateView(CreateView):
     model = Course
     fields = ['name', 'description', 'start_date', 'end_date']
     template_name = 'courses/create.html'
+
+    def get_success_url(self, **kwargs):
+        return reverse_lazy('education:courses:detail', kwargs={'course_id': self.object.id})
+
+
+class CourseEditView(UpdateView):
+    model = Course
+    fields = ['name', 'description', 'start_date', 'end_date']
+    template_name = 'courses/edit.html'
 
     def get_success_url(self, **kwargs):
         return reverse_lazy('education:courses:detail', kwargs={'course_id': self.object.id})
