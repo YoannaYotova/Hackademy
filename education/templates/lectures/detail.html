@@ -1,1 +1,24 @@
-<h1>{{ lecture.name }}</h1>
+<!-- <h1>{{ lecture.name }}</h1> -->
+
+<table style="width: 70%">
+    <tr>
+        <th>LectureName</th>
+        <th>Week</th>
+        <th>Course</th>
+        <th>URL presentation</th>
+    </tr>
+    <tr>
+        <td>
+            {{ lecture.name }}
+        </td>
+        <td>
+            {{ lecture.week }}
+        </td>
+        <td>
+            <a href="{% url 'education:courses:detail' lecture.course.id %}">{{ lecture.course.name }}</a>
+        </td>
+        <td>
+            {{ lecture.utl }} 
+        </td>
+    </tr>
+</table>
