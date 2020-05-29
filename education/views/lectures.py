@@ -21,3 +21,12 @@ class LectureCreateView(CreateView):
 
     def get_success_url(self, **kwargs):
         return reverse_lazy('education:lectures:detail', kwargs={'lecture_id': self.object.id})
+
+
+class LectureEditView(UpdateView):
+    model = Lecture
+    fields = ['name', 'week', 'course', 'url']
+    template_name = 'lectures/edit.html'
+
+    def get_success_url(self, **kwargs):
+        return reverse_lazy('education:lectures:detail', kwargs={'lecture_id': self.object.id})
