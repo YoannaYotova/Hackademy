@@ -19,7 +19,7 @@ lectures_patterns = [
     path('<int:lecture_id>/', lectures.detail, name='detail'),
     path('new/', lectures.LectureCreateView.as_view(), name='create'),
     path('<int:pk>/edit/', lectures.LectureEditView.as_view(), name='edit'),
-
+    path('delete/<int:lecture_id>/', lectures.delete_course, name='delete'),
 ]
 
 urlpatterns = [

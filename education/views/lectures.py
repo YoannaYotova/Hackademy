@@ -1,8 +1,8 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.views.generic import CreateView
 from django.views.generic.edit import UpdateView
 from education.models import Lecture
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy, reverse
 
 
 def list(request):
@@ -12,6 +12,12 @@ def list(request):
 def detail(request, lecture_id):
     lecture = get_object_or_404(Lecture, id=lecture_id)
     return render(request, 'lectures/detail.html', {'lecture': lecture})
+
+
+def delete_course(request, course_id):
+    if request.method == 'POST':
+        Lecture.objects.get(id=course_id).delete()
+    return redirect(reverse('education:courses:list'))
 
 
 class LectureCreateView(CreateView):

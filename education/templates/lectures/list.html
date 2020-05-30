@@ -4,6 +4,11 @@
 
 <ul>
   {% for lecture in lectures %}
-  <li><a href="{% url 'education:lectures:detail' lecture.id %}">{{ lecture.name }}</a></li>
+  <li><a href="{% url 'education:lectures:detail' lecture.id %}">{{ lecture.name }}</a>
+  		<form method="POST" action="{% url 'education:lectures:delete' lecture.id %}">
+            {% csrf_token %}
+            <button>Delete</button>
+        </form>
+  </li>
   {% endfor %}
 </ul>
