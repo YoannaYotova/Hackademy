@@ -1,15 +1,5 @@
 {% extends "courses/base.html" %} {% block content %}
-<!-- <a href="{% url 'education:courses:create' %}">Add new</a>
-
-{% if courses %}
-<ul>
-  {% for course in courses %}
-  <li><a href="{% url 'education:courses:detail' course.id %}">{{ course.name }}</a></li>
-  {% endfor %}
-</ul>
-{% else %}
-<p><strong>No courses yet.</strong></p>
-{% endif %}  -->
+ <a href="{% url 'education:courses:create' %}">Add new</a>
 
 <table style="width: 70%">
     <tr>
@@ -35,6 +25,12 @@
         </td>
         <td>
             {{ course.duration }} 
+        </td>
+        <td>
+            <form method="POST" action="{% url 'education:courses:delete' course.id %}">
+                {% csrf_token %}
+                <button>Delete</button>
+            </form>
         </td>
     </tr>
     {% endfor %}

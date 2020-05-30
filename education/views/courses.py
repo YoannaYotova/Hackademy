@@ -1,7 +1,7 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.views.generic import CreateView
 from django.views.generic.edit import UpdateView
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy, reverse
 
 from education.models import Course, Lecture
 
@@ -16,13 +16,19 @@ def detail(request, course_id):
     return render(request, 'courses/detail.html', {'course': course, 'lectures': lectures})
 
 
+def delete_course(request, course_id):
+    if request.method == 'POST':
+        Course.objects.get(id=course_id).delete()
+    return redirect(reverse('education:courses:list'))
+
+
 class CourseCreateView(CreateView):
     model = Course
     fields = ['name', 'description', 'start_date', 'end_date']
     template_name = 'courses/create.html'
 
     def get_success_url(self, **kwargs):
-        return reverse_lazy('education:courses:detail', kwargs={'course_id': self.object.id})
+        return reverse_lazy('education:courses:list')
 
 
 class CourseEditView(UpdateView):

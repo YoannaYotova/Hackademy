@@ -15,7 +15,7 @@ class Course(models.Model):
     @property
     def duration(self):
         if self.end_date:
-            return self.end_date - self.start_date
+            return f'{(self.end_date - self.start_date).days // 30} months'
 
 
 class Lecture(models.Model):
